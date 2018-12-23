@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tariffs>
+	<electro_tariff_1>0.3084</electro_tariff_1>
+	<electro_limit_1>75</electro_limit_1>
+	<electro_tariff_2>0.6168</electro_tariff_2>
+	<electro_limit_2>150</electro_limit_2>
+	<electro_tariff_3>0.8388</electro_tariff_3>
+	<electro_limit_3>800</electro_limit_3>
+	<electro_tariff_4>2.6808</electro_tariff_4>
+	<heating_tariff>270.11</heating_tariff>
+	<water_tariff>14.0</water_tariff>
+	<flat_tariff>197.0</flat_tariff>
+	<garbage_tariff>22.0</garbage_tariff>
+</tariffs>
