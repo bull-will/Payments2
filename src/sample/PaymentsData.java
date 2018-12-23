@@ -413,9 +413,13 @@ public class PaymentsData {
 
             }
         } catch (FileNotFoundException e) {
-            //e.printStackTrace();
+            Alerts.alertInfo("Проблема чтения",
+                    "Проблема чтения файла сохраненных платежей." +
+                            "\nФайл не существует, а может быть, поврежден");
         } catch (XMLStreamException e) {
-            e.printStackTrace();
+            Alerts.alertInfo("Проблема чтения",
+                    "Проблема при чтении файла сохраненных платежей" +
+                            "\nЧто-то пошло не так в потоке чтения");
         }
     }
 
