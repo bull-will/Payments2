@@ -21,7 +21,7 @@ public class Controller {
 
     private PaymentsData paymentsData;
 
-    private TariffsData tariffsData;
+    private TariffsDataViaProperties tariffsData;
 
     private Payment payment;
 
@@ -38,7 +38,7 @@ public class Controller {
 
     public void initialize() {
         paymentsData = new PaymentsData();
-        tariffsData = new TariffsData();
+        tariffsData = new TariffsDataViaProperties();
         paymentsData.loadPayments();
         tariffsData.loadTariffs();
 

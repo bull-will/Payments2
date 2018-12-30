@@ -46,7 +46,7 @@ public class TariffsDialogController {
 
     private boolean someFieldsProcessedWrong = false;
 
-    public void showDialogFillFields(TariffsData tariffsData) {
+    public void showDialogFillFields(TariffsDataViaProperties tariffsData) {
         electroTariff1Field.setText(String.valueOf(tariffsData.electroTariff1));
         electroTariff2Field.setText(String.valueOf(tariffsData.electroTariff2));
         electroTariff3Field.setText(String.valueOf(tariffsData.electroTariff3));
@@ -137,7 +137,7 @@ public class TariffsDialogController {
         }
     }
 
-    public TariffsData processTariffs(TariffsData tariffsData) {
+    public TariffsDataViaProperties processTariffs(TariffsDataViaProperties tariffsData) {
         obtainNumbersFromTextFields();
 
         tariffsData.electroTariff1 = electroTariff1;
@@ -156,8 +156,8 @@ public class TariffsDialogController {
     }
 
     public void backToDefaults(ActionEvent actionEvent) {
-        TariffsData newDefaultTariffsData = new TariffsData();
-        showDialogFillFields(newDefaultTariffsData);
+        TariffsDataViaProperties newDefaultTariffsDataViaProperties = new TariffsDataViaProperties();
+        showDialogFillFields(newDefaultTariffsDataViaProperties);
 //        obtainNumbersFromTextFields();
     }
 }

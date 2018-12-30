@@ -26,17 +26,17 @@ public class TariffsData {
     private static final String FLAT_TARIFF = "flat_tariff";
     private static final String GARBAGE_TARIFF = "garbage_tariff";
 
-    private double electroTariff1Original = 0.3084;
-    private int electroLimit1Original = 75;
-    private double electroTariff2Original = 0.6168;
-    private int electroLimit2Original = 150;
-    private double electroTariff3Original = 0.8388;
-    private int electroLimit3Original = 800;
-    private double electroTariff4Original = 2.6808;
-    private double heatingTariffOriginal = 270.11;
-    private double waterTariffOriginal = 14.0;
-    private double flatTariffOriginal = 197.0;
-    private double garbageTariffOriginal = 22.0;
+    private final double electroTariff1Original = 0.3084;
+    private final int electroLimit1Original = 75;
+    private final double electroTariff2Original = 0.6168;
+    private final int electroLimit2Original = 150;
+    private final double electroTariff3Original = 0.8388;
+    private final int electroLimit3Original = 800;
+    private final double electroTariff4Original = 2.6808;
+    private final double heatingTariffOriginal = 270.11;
+    private final double waterTariffOriginal = 14.0;
+    private final double flatTariffOriginal = 197.0;
+    private final double garbageTariffOriginal = 22.0;
 
     double electroTariff1;
     int electroLimit1;

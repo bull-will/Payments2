@@ -307,7 +307,7 @@ public class PaymentDialogController {
     }
 
     public void showDialogFillFields(Payment payment, boolean refillAllFieldsForEditing, boolean fillSetFields,
-                                     TariffsData tariffsData) {
+                                     TariffsDataViaProperties tariffsData) {
         monthField.setText(String.valueOf(payment.month));
         yearField.setText(String.valueOf(payment.year));
 
