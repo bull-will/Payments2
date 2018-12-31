@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import sample.PaymentsData;
 
 public class Main extends Application {
     private PaymentsData paymentsData;
@@ -12,10 +13,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 //        Original:
-        String workingDir = System.getProperty("user.dir");
-        System.out.println(workingDir);
-        String fxmlPath = workingDir + "\\src\\main\\resources\\sample.fxml";
-        System.out.println(fxmlPath);
+//        String workingDir = System.getProperty("user.dir");
+//        System.out.println(workingDir);
+//        String fxmlPath = workingDir + "\\src\\main\\resources\\sample.fxml";
+//        System.out.println(fxmlPath);
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("sample.fxml"));
         primaryStage.setTitle("Платежи");
         primaryStage.setScene(new Scene(root, 900, 475));
