@@ -73,7 +73,7 @@ public class Controller {
             public void changed(ObservableValue<? extends Payment> observable, Payment oldvalue, Payment newValue) {
                 if (newValue != null) {
                     Payment item = paymentsListView.getSelectionModel().getSelectedItem();
-                    paymentTextArea.setText(item.printContact());
+                    paymentTextArea.setText(item.printPayment());
                 }
             }
         });
@@ -93,7 +93,7 @@ public class Controller {
                         if (empty) {
                             setText(null);
                         } else {
-                            setText(item.name);
+                            setText(item.name.get());
                         }
                     }
                 };
@@ -115,7 +115,7 @@ public class Controller {
     @FXML
     public void handleClickListView() {
         Payment payment = paymentsListView.getSelectionModel().getSelectedItem();
-        paymentTextArea.setText(payment.printContact());
+        paymentTextArea.setText(payment.printPayment());
     }
 
     @FXML
@@ -148,8 +148,8 @@ public class Controller {
             }
 
             baseForNewPayment = new Payment(newPaymentYear, newPaymentMonth,
-                    lastPayment.electroEnd /*the last end indications are the current first indications*/, lastPayment.electroEnd,
-                    lastPayment.waterEnd /*the last end indications are the current first indications*/, lastPayment.waterEnd);
+                    lastPayment.electroEnd /*the last end indications are the currentDir first indications*/, lastPayment.electroEnd,
+                    lastPayment.waterEnd /*the last end indications are the currentDir first indications*/, lastPayment.waterEnd);
         }
         newPayment(baseForNewPayment, false);
     }
@@ -186,7 +186,7 @@ public class Controller {
         payment = paymentsListView.getSelectionModel().getSelectedItem();
         if (payment != null) {
             editPayment(payment);
-            paymentTextArea.setText(payment.printContact());
+            paymentTextArea.setText(payment.printPayment());
         } else {
             Alerts.alertInfo("Нечего редактировать", "Нечего редактировать, нет выделенного платежа");
             return;
@@ -257,7 +257,7 @@ public class Controller {
 
     public void deletePayment(Payment paymentToDelete) {
         Alert alert = Alerts.alertConfirmation("Удаление платежа",
-                "Удаление платежа: " + paymentToDelete.name,
+                "Удаление платежа: " + paymentToDelete.name.get(),
                 "Нажмите ОК чтобы удалить или Cancel чтобы отменить");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
@@ -316,7 +316,8 @@ public class Controller {
             return;
         }
 
-        File outPutFileToPrint = makeOutPutFile(paymentToDoc.name);
+        String docFileName = paymentToDoc.name.get();
+        File outPutFileToPrint = makeOutPutFile(paymentToDoc.name.get());
 
         /* Now this method makes output stream writer for the .doc file */
         OutputStreamWriter dataOut = makeWriter(outPutFileToPrint);
@@ -357,7 +358,7 @@ public class Controller {
 
     private void writeLinesToFile(Payment paymentToDoc, OutputStreamWriter dataOut) throws IOException {
 
-        String writeLine = paymentToDoc.printContact();
+        String writeLine = paymentToDoc.printPayment();
         dataOut.write(writeLine);
         dataOut.close();
     }

@@ -8,14 +8,16 @@ import javax.xml.stream.events.*;
 import java.io.*;
 
 public class PaymentsData {
+    String currentDir = "";
 
-    private static final String PAYMENTS_FILE = "src/main/java/sample/payments.xml";
+    private static String PAYMENTS_FILE = "payments.xml";
     private static final String PAYMENTS = "payments";
     private static final String PAYMENT = "payment";
 
     private static final String YEAR = "year";
     private static final String MONTH = "month";
     private static final String NAME = "name";
+    private static final String NAME_TO_PRINT_IS_SET = "name_to_print_is_set";
     private static final String ELECTRO_TARIFF_1 = "electro_tariff_1";
     private static final String ELECTRO_LIMIT_1 = "electro_limit_1";
     private static final String ELECTRO_TARIFF_2 = "electro_tariff_2";
@@ -93,7 +95,7 @@ public class PaymentsData {
         }
         System.out.println(" - - List of payments: - - ");
         for (Payment payment : payments) {
-            System.out.println(payment.printContact());
+            System.out.println(payment.printPayment());
         }
     }
 
@@ -101,15 +103,29 @@ public class PaymentsData {
 
         try {
             // First, create a new XMLInputFactory
+
             XMLInputFactory inputFactory = XMLInputFactory.newInstance();
             // Setup a new eventReader
             InputStream in = new FileInputStream(PAYMENTS_FILE);
-            XMLEventReader eventReader = inputFactory.createXMLEventReader(in);
+            XMLEventReader eventReader = inputFactory.createXMLEventReader(in, "UTF-8");
+
             // read the XML document
             Payment payment = null;
 
             while (eventReader.hasNext()) {
                 XMLEvent event = eventReader.nextEvent();
+
+                //for testing and info
+//                try {
+//                    currentDir = new java.io.File( "." ).getCanonicalPath();
+//                    Alerts.alertInfo("Обрабатываемое занчение xml:", String.valueOf(event));
+////            PAYMENTS_FILE = currentDir + "\\" + PAYMENTS_FILE;
+//                } catch (IOException e) {
+//                    Alerts.alertInfo("Ошибка", "Ошибка получения адреса рабочей директории");
+//                }
+                // for testing and info
+
+
 
                 if (event.isStartElement()) {
                     StartElement startElement = event.asStartElement();
@@ -139,7 +155,7 @@ public class PaymentsData {
                     if (event.asStartElement().getName().getLocalPart()
                             .equals(NAME)) {
                         event = eventReader.nextEvent();
-                        payment.name = event.asCharacters().getData();
+                        payment.name.set(event.asCharacters().getData());
                         continue;
                     }
 
@@ -474,7 +490,7 @@ public class PaymentsData {
         // Write the different nodes
         NodeCreator.createNode(eventWriter, YEAR, String.valueOf(payment.year));
         NodeCreator.createNode(eventWriter, MONTH, String.valueOf(payment.month));
-        NodeCreator.createNode(eventWriter, NAME, payment.name);
+        NodeCreator.createNode(eventWriter, NAME, payment.name.get());
         NodeCreator.createNode(eventWriter, ELECTRO_TARIFF_1, String.valueOf(payment.electroTariff1));
         NodeCreator.createNode(eventWriter, ELECTRO_LIMIT_1, String.valueOf(payment.electroLimit1));
         NodeCreator.createNode(eventWriter, ELECTRO_TARIFF_2, String.valueOf(payment.electroTariff2));

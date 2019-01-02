@@ -1,9 +1,11 @@
 package sample;
 
+import javafx.beans.property.SimpleStringProperty;
+
 public class Payment {
 
-    static final String[] MONTHS = {"Без месяца", "Январь", "Февраль", "Март", "Апрель",
-            "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"};
+    static final String[] NAMES_OF_MONTHS = {"No Month", "January", "February", "March", "April",
+            "May", "June", "July", "August", "September", "October", "November", "December"};
 
     double electroTariff1 = 0.3084;
     int electroLimit1 = 75;
@@ -33,7 +35,7 @@ public class Payment {
     double garbageMustPay = 0.0;
     boolean garbagePaymentSet = false;
 
-    String name; //year and month represent the name for a payment
+    SimpleStringProperty name; //year and month represent the name for a payment
 
     int year;
     int month;
@@ -60,14 +62,10 @@ public class Payment {
     Method payForEverything() (at the bottom) runs them all.
     */
     public Payment(int year, int month, int electroStart, int electroEnd, int waterStart, int waterEnd) {
-        if (month > 0 & month < 13) {
-            name = year + "." + month + " (" + MONTHS[month] + ")";
-        } else {
-            month = 0;
-            name = year + "." + month + " (" + MONTHS[month] + ")";
-        }
+        this.name = new SimpleStringProperty();
         this.year = year;
         this.month = month;
+        buildName();
         this.electroStart = electroStart;
         this.electroEnd = electroEnd;
         this.waterStart = waterStart;
@@ -77,10 +75,9 @@ public class Payment {
 
     void buildName() {
         if (month > 0 & month < 13) {
-            name = year + "." + month + " (" + MONTHS[month] + ")";
+            name.set(year + "." + month + " (" + NAMES_OF_MONTHS[month] + ")");
         } else {
-            month = 0;
-            name = year + "." + month + " (" + MONTHS[month] + ")";
+            name.set(year + "." + month + " (" + NAMES_OF_MONTHS[0] + ")");
         }
     }
 
@@ -218,10 +215,10 @@ public class Payment {
     }
 
 
-    public String printContact() {
+    public String printPayment() {
         String writeLine = "";
 
-        writeLine = writeLine.concat(name + ":\n\n")
+        writeLine = writeLine.concat(name.get() + ":\n\n")
                 .concat("Квартплата\t\t\tТариф " + Math.round(flatTariffToPrint) + " руб.\n")
                 .concat("\t\t\t\tПлатеж " + paymentForFlat + " руб.\n\n")
                 .concat("Электричество\n")
@@ -274,7 +271,7 @@ public class Payment {
         clone.garbageMustPay = garbageMustPay;
         clone.garbagePaymentSet = garbagePaymentSet;
 
-        clone.name = name;
+        clone.name.set(name.get());
 
         clone.year = year;
         clone.year = year;
