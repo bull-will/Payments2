@@ -31,6 +31,13 @@
             <artifactId>javafx-graphics</artifactId>
             <version>12-ea+6</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/javax.xml.stream/stax-api -->
+        <dependency>
+            <groupId>javax.xml.stream</groupId>
+            <artifactId>stax-api</artifactId>
+            <version>1.0-2</version>
+        </dependency>
+
 
     </dependencies>
     <build>

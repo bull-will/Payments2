@@ -4,8 +4,8 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class Payment {
 
-    static final String[] NAMES_OF_MONTHS = {"No Month", "January", "February", "March", "April",
-            "May", "June", "July", "August", "September", "October", "November", "December"};
+    static final String[] NAMES_OF_MONTHS = {"Без Месяца", "Январь", "Февраль", "Март", "Апрель",
+            "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"};
 
     double electroTariff1 = 0.3084;
     int electroLimit1 = 75;

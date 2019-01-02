@@ -8,7 +8,6 @@ import javax.xml.stream.events.*;
 import java.io.*;
 
 public class PaymentsData {
-    String currentDir = "";
 
     private static String PAYMENTS_FILE = "payments.xml";
     private static final String PAYMENTS = "payments";
@@ -432,17 +431,21 @@ public class PaymentsData {
                     Alerts.alertInfo("Проблема потока чтения",
                             "В потоке чтения платежей произошла какая-то ошибка\n" +
                                     "Часть одного из платежей считана неправильно.\n" +
-                                    "Можете изучить платежи и найти, что не так");
+                                    "Можете изучить платежи и найти, что не так" +
+                            xlmse.getMessage()
+                    );
                 }
             }
         } catch (FileNotFoundException e) {
             Alerts.alertInfo("Ошибка чтения",
                     "Проблема чтения файла сохраненных платежей." +
                             "\nФайл не существует, а может быть, поврежден");
-        } catch (XMLStreamException e) {
+        } catch (XMLStreamException xlmse) {
             Alerts.alertInfo("Проблема чтения",
                     "Проблема при чтении файла сохраненных платежей" +
-                            "\nЧто-то пошло не так в потоке чтения xml");
+                            "\nЧто-то пошло не так в потоке чтения xml"+
+                    xlmse.getMessage()
+            );
         } finally {
             if (in != null) {
                 try {
@@ -459,11 +462,13 @@ public class PaymentsData {
     public void save() {
 
         try {
+            FileOutputStream out = new FileOutputStream(PAYMENTS_FILE);
+
             // create an XMLOutputFactory
             XMLOutputFactory outputFactory = XMLOutputFactory.newInstance();
             // create XMLEventWriter
             XMLEventWriter eventWriter = outputFactory
-                    .createXMLEventWriter(new FileOutputStream(PAYMENTS_FILE));
+                    .createXMLEventWriter(out, "UTF-8");
             // create an EventFactory
             XMLEventFactory eventFactory = XMLEventFactory.newInstance();
             XMLEvent end = eventFactory.createDTD("\n");
