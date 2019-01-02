@@ -265,9 +265,13 @@ public class Controller {
             paymentTextArea.clear();
             paymentsListView.refresh();
             paymentsData.save();
+            if (!paymentsData.getPayments().isEmpty()) {
+                paymentsListView.getSelectionModel().selectLast();
+                Payment selectedPayment = paymentsListView.getSelectionModel().getSelectedItem();
+                paymentTextArea.setText(selectedPayment.printPayment());
+            }
             /* for info */
             paymentsData.printAll();
-//            paymentsListView.getSelectionModel().selectLast();
         }
     }
 
