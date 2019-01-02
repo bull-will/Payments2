@@ -9,7 +9,7 @@ import java.io.*;
 
 public class PaymentsData {
 
-    private static final String PAYMENTS_FILE = "payments.xml";
+    private static final String PAYMENTS_FILE = "src/main/java/sample/payments.xml";
     private static final String PAYMENTS = "payments";
     private static final String PAYMENT = "payment";
 
