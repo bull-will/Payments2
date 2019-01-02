@@ -4,7 +4,7 @@ package sample;
  * so I invoke the SubMain extending Application from Main */
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Running SubMain from Main");
+//        System.out.println("Running SubMain from Main");
         SubMain.main(args);
     }
 }

@@ -100,22 +100,24 @@ public class PaymentsData {
     }
 
     public void loadPayments() {
-
+        InputStream in = null;
         try {
             // First, create a new XMLInputFactory
 
             XMLInputFactory inputFactory = XMLInputFactory.newInstance();
             // Setup a new eventReader
-            InputStream in = new FileInputStream(PAYMENTS_FILE);
+            in = new FileInputStream(PAYMENTS_FILE);
             XMLEventReader eventReader = inputFactory.createXMLEventReader(in, "UTF-8");
 
             // read the XML document
             Payment payment = null;
 
-            while (eventReader.hasNext()) {
-                XMLEvent event = eventReader.nextEvent();
 
-                //for testing and info
+            while (eventReader.hasNext()) {
+
+                XMLEvent event = eventReader.nextEvent();
+                try {
+                    //for testing and info
 //                try {
 //                    currentDir = new java.io.File( "." ).getCanonicalPath();
 //                    Alerts.alertInfo("Обрабатываемое занчение xml:", String.valueOf(event));
@@ -123,319 +125,334 @@ public class PaymentsData {
 //                } catch (IOException e) {
 //                    Alerts.alertInfo("Ошибка", "Ошибка получения адреса рабочей директории");
 //                }
-                // for testing and info
+                    // for testing and info
 
-
-
-                if (event.isStartElement()) {
-                    StartElement startElement = event.asStartElement();
-                    // If we have a contact item, we create a new contact
-                    if (startElement.getName().getLocalPart().equals(PAYMENT)) {
-                        payment = new Payment(0, 0, 0, 0, 0, 0);
-                        continue;
-                    }
-
-                    /* ↓↓↓ 320 lines of 40 "if's" for parsing all the fields of the payment ↓↓↓ */
 
                     if (event.isStartElement()) {
+                        StartElement startElement = event.asStartElement();
+                        // If we have a contact item, we create a new contact
+                        if (startElement.getName().getLocalPart().equals(PAYMENT)) {
+                            payment = new Payment(0, 0, 0, 0, 0, 0);
+                            continue;
+                        }
+
+                        /* ↓↓↓ 320 lines of 40 "if's" for parsing all the fields of the payment ↓↓↓ */
+
+                        if (event.isStartElement()) {
+                            if (event.asStartElement().getName().getLocalPart()
+                                    .equals(YEAR)) {
+                                event = eventReader.nextEvent();
+                                payment.year = Integer.parseInt(event.asCharacters().getData());
+                                continue;
+                            }
+                        }
                         if (event.asStartElement().getName().getLocalPart()
-                                .equals(YEAR)) {
+                                .equals(MONTH)) {
                             event = eventReader.nextEvent();
-                            payment.year = Integer.parseInt(event.asCharacters().getData());
+                            payment.month = Integer.parseInt(event.asCharacters().getData());
+                            continue;
+                        }
+
+                        if (event.asStartElement().getName().getLocalPart()
+                                .equals(NAME)) {
+                            event = eventReader.nextEvent();
+                            payment.name.set(event.asCharacters().getData());
+                            continue;
+                        }
+
+                        if (event.asStartElement().getName().getLocalPart()
+                                .equals(ELECTRO_TARIFF_1)) {
+                            event = eventReader.nextEvent();
+                            payment.electroTariff1 = Double.parseDouble(event.asCharacters().getData());
+                            continue;
+                        }
+
+                        if (event.asStartElement().getName().getLocalPart()
+                                .equals(ELECTRO_LIMIT_1)) {
+                            event = eventReader.nextEvent();
+                            payment.electroLimit1 = Integer.parseInt(event.asCharacters().getData());
+                            continue;
+                        }
+
+                        if (event.asStartElement().getName().getLocalPart()
+                                .equals(ELECTRO_TARIFF_2)) {
+                            event = eventReader.nextEvent();
+                            payment.electroTariff2 = Double.parseDouble(event.asCharacters().getData());
+                            continue;
+                        }
+
+                        if (event.asStartElement().getName().getLocalPart()
+                                .equals(ELECTRO_LIMIT_2)) {
+                            event = eventReader.nextEvent();
+                            payment.electroLimit2 = Integer.parseInt(event.asCharacters().getData());
+                            continue;
+                        }
+
+                        if (event.asStartElement().getName().getLocalPart()
+                                .equals(ELECTRO_TARIFF_3)) {
+                            event = eventReader.nextEvent();
+                            payment.electroTariff3 = Double.parseDouble(event.asCharacters().getData());
+                            continue;
+                        }
+
+                        if (event.asStartElement().getName().getLocalPart()
+                                .equals(ELECTRO_LIMIT_3)) {
+                            event = eventReader.nextEvent();
+                            payment.electroLimit3 = Integer.parseInt(event.asCharacters().getData());
+                            continue;
+                        }
+
+                        if (event.asStartElement().getName().getLocalPart()
+                                .equals(ELECTRO_TARIFF_4)) {
+                            event = eventReader.nextEvent();
+                            payment.electroTariff4 = Double.parseDouble(event.asCharacters().getData());
+                            continue;
+                        }
+
+                        if (event.asStartElement().getName().getLocalPart()
+                                .equals(HEATING_TARIFF)) {
+                            event = eventReader.nextEvent();
+                            payment.heatingTariff = Double.parseDouble(event.asCharacters().getData());
+                            continue;
+                        }
+
+                        if (event.asStartElement().getName().getLocalPart()
+                                .equals(WATER_TARIFF)) {
+                            event = eventReader.nextEvent();
+                            payment.waterTariff = Double.parseDouble(event.asCharacters().getData());
+                            continue;
+                        }
+
+                        if (event.asStartElement().getName().getLocalPart()
+                                .equals(FLAT_TARIFF)) {
+                            event = eventReader.nextEvent();
+                            payment.flatTariff = Double.parseDouble(event.asCharacters().getData());
+                            continue;
+                        }
+
+                        if (event.asStartElement().getName().getLocalPart()
+                                .equals(GARBAGE_TARIFF)) {
+                            event = eventReader.nextEvent();
+                            payment.garbageTariff = Double.parseDouble(event.asCharacters().getData());
+                            continue;
+                        }
+
+                        if (event.asStartElement().getName().getLocalPart()
+                                .equals(HEATING_TARIFF_TO_PRINT)) {
+                            event = eventReader.nextEvent();
+                            payment.heatingTariffToPrint = Double.parseDouble(event.asCharacters().getData());
+                            continue;
+                        }
+
+                        if (event.asStartElement().getName().getLocalPart()
+                                .equals(WATER_TARIFF_TO_PRINT)) {
+                            event = eventReader.nextEvent();
+                            payment.waterTariffToPrint = Double.parseDouble(event.asCharacters().getData());
+                            continue;
+                        }
+
+                        if (event.asStartElement().getName().getLocalPart()
+                                .equals(FLAT_TARIFF_TO_PRINT)) {
+                            event = eventReader.nextEvent();
+                            payment.flatTariffToPrint = Double.parseDouble(event.asCharacters().getData());
+                            continue;
+                        }
+
+                        if (event.asStartElement().getName().getLocalPart()
+                                .equals(GARBAGE_TARIFF_TO_PRINT)) {
+                            event = eventReader.nextEvent();
+                            payment.garbageTariffToPrint = Double.parseDouble(event.asCharacters().getData());
+                            continue;
+                        }
+
+                        if (event.asStartElement().getName().getLocalPart()
+                                .equals(ELECTRO_MUST_PAY)) {
+                            event = eventReader.nextEvent();
+                            payment.electroMustPay = Double.parseDouble(event.asCharacters().getData());
+                            continue;
+                        }
+
+                        if (event.asStartElement().getName().getLocalPart()
+                                .equals(ELECTRO_PAYMENT_SET)) {
+                            event = eventReader.nextEvent();
+                            payment.electroPaymentSet = Boolean.parseBoolean(event.asCharacters().getData());
+                            continue;
+                        }
+
+                        if (event.asStartElement().getName().getLocalPart()
+                                .equals(HEATING_MUST_PAY)) {
+                            event = eventReader.nextEvent();
+                            payment.heatingMustPay = Double.parseDouble(event.asCharacters().getData());
+                            continue;
+                        }
+
+                        if (event.asStartElement().getName().getLocalPart()
+                                .equals(HEATING_PAYMENT_SET)) {
+                            event = eventReader.nextEvent();
+                            payment.heatingPaymentSet = Boolean.parseBoolean(event.asCharacters().getData());
+                            continue;
+                        }
+
+                        if (event.asStartElement().getName().getLocalPart()
+                                .equals(WATER_MUST_PAY)) {
+                            event = eventReader.nextEvent();
+                            payment.waterMustPay = Double.parseDouble(event.asCharacters().getData());
+                            continue;
+                        }
+
+                        if (event.asStartElement().getName().getLocalPart()
+                                .equals(WATER_PAYMENT_SET)) {
+                            event = eventReader.nextEvent();
+                            payment.waterPaymentSet = Boolean.parseBoolean(event.asCharacters().getData());
+                            continue;
+                        }
+
+                        if (event.asStartElement().getName().getLocalPart()
+                                .equals(FLAT_MUST_PAY)) {
+                            event = eventReader.nextEvent();
+                            payment.flatMustPay = Double.parseDouble(event.asCharacters().getData());
+                            continue;
+                        }
+
+                        if (event.asStartElement().getName().getLocalPart()
+                                .equals(FLAT_PAYMENT_SET)) {
+                            event = eventReader.nextEvent();
+                            payment.flatPaymentSet = Boolean.parseBoolean(event.asCharacters().getData());
+                            continue;
+                        }
+
+                        if (event.asStartElement().getName().getLocalPart()
+                                .equals(GARBAGE_MUST_PAY)) {
+                            event = eventReader.nextEvent();
+                            payment.garbageMustPay = Double.parseDouble(event.asCharacters().getData());
+                            continue;
+                        }
+
+                        if (event.asStartElement().getName().getLocalPart()
+                                .equals(GARBAGE_PAYMENT_SET)) {
+                            event = eventReader.nextEvent();
+                            payment.garbagePaymentSet = Boolean.parseBoolean(event.asCharacters().getData());
+                            continue;
+                        }
+
+                        if (event.asStartElement().getName().getLocalPart()
+                                .equals(ELECTRO_START)) {
+                            event = eventReader.nextEvent();
+                            payment.electroStart = Integer.parseInt(event.asCharacters().getData());
+                            continue;
+                        }
+
+                        if (event.asStartElement().getName().getLocalPart()
+                                .equals(ELECTRO_END)) {
+                            event = eventReader.nextEvent();
+                            payment.electroEnd = Integer.parseInt(event.asCharacters().getData());
+                            continue;
+                        }
+
+                        if (event.asStartElement().getName().getLocalPart()
+                                .equals(KWATT_CONSUMED)) {
+                            event = eventReader.nextEvent();
+                            payment.kWattConsumed = Integer.parseInt(event.asCharacters().getData());
+                            continue;
+                        }
+
+                        if (event.asStartElement().getName().getLocalPart()
+                                .equals(WATER_START)) {
+                            event = eventReader.nextEvent();
+                            payment.waterStart = Integer.parseInt(event.asCharacters().getData());
+                            continue;
+                        }
+
+                        if (event.asStartElement().getName().getLocalPart()
+                                .equals(WATER_END)) {
+                            event = eventReader.nextEvent();
+                            payment.waterEnd = Integer.parseInt(event.asCharacters().getData());
+                            continue;
+                        }
+
+                        if (event.asStartElement().getName().getLocalPart()
+                                .equals(M3_CONSUMED)) {
+                            event = eventReader.nextEvent();
+                            payment.m3consumed = Integer.parseInt(event.asCharacters().getData());
+                            continue;
+                        }
+
+                        if (event.asStartElement().getName().getLocalPart()
+                                .equals(PAYMENT_FOR_ELECTRICITY)) {
+                            event = eventReader.nextEvent();
+                            payment.paymentForElectricity = Integer.parseInt(event.asCharacters().getData());
+                            continue;
+                        }
+
+                        if (event.asStartElement().getName().getLocalPart()
+                                .equals(PAYMENT_FOR_WATER)) {
+                            event = eventReader.nextEvent();
+                            payment.paymentForWater = Integer.parseInt(event.asCharacters().getData());
+                            continue;
+                        }
+
+                        if (event.asStartElement().getName().getLocalPart()
+                                .equals(PAYMENT_FOR_HEATING)) {
+                            event = eventReader.nextEvent();
+                            payment.paymentForHeating = Integer.parseInt(event.asCharacters().getData());
+                            continue;
+                        }
+
+                        if (event.asStartElement().getName().getLocalPart()
+                                .equals(PAYMENT_FOR_FLAT)) {
+                            event = eventReader.nextEvent();
+                            payment.paymentForFlat = Integer.parseInt(event.asCharacters().getData());
+                            continue;
+                        }
+
+                        if (event.asStartElement().getName().getLocalPart()
+                                .equals(PAYMENT_FOR_GARBAGE)) {
+                            event = eventReader.nextEvent();
+                            payment.paymentForGarbage = Integer.parseInt(event.asCharacters().getData());
+                            continue;
+                        }
+
+                        if (event.asStartElement().getName().getLocalPart()
+                                .equals(TOTAL)) {
+                            event = eventReader.nextEvent();
+                            payment.total = Integer.parseInt(event.asCharacters().getData());
                             continue;
                         }
                     }
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(MONTH)) {
-                        event = eventReader.nextEvent();
-                        payment.month = Integer.parseInt(event.asCharacters().getData());
-                        continue;
+
+                    // If we reach the end of a contact element, we add it to the list
+                    if (event.isEndElement()) {
+                        EndElement endElement = event.asEndElement();
+                        if (endElement.getName().getLocalPart().equals(PAYMENT)) {
+                            payments.add(payment);
+                        }
                     }
 
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(NAME)) {
-                        event = eventReader.nextEvent();
-                        payment.name.set(event.asCharacters().getData());
-                        continue;
-                    }
-
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(ELECTRO_TARIFF_1)) {
-                        event = eventReader.nextEvent();
-                        payment.electroTariff1 = Double.parseDouble(event.asCharacters().getData());
-                        continue;
-                    }
-
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(ELECTRO_LIMIT_1)) {
-                        event = eventReader.nextEvent();
-                        payment.electroLimit1 = Integer.parseInt(event.asCharacters().getData());
-                        continue;
-                    }
-
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(ELECTRO_TARIFF_2)) {
-                        event = eventReader.nextEvent();
-                        payment.electroTariff2 = Double.parseDouble(event.asCharacters().getData());
-                        continue;
-                    }
-
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(ELECTRO_LIMIT_2)) {
-                        event = eventReader.nextEvent();
-                        payment.electroLimit2 = Integer.parseInt(event.asCharacters().getData());
-                        continue;
-                    }
-
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(ELECTRO_TARIFF_3)) {
-                        event = eventReader.nextEvent();
-                        payment.electroTariff3 = Double.parseDouble(event.asCharacters().getData());
-                        continue;
-                    }
-
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(ELECTRO_LIMIT_3)) {
-                        event = eventReader.nextEvent();
-                        payment.electroLimit3 = Integer.parseInt(event.asCharacters().getData());
-                        continue;
-                    }
-
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(ELECTRO_TARIFF_4)) {
-                        event = eventReader.nextEvent();
-                        payment.electroTariff4 = Double.parseDouble(event.asCharacters().getData());
-                        continue;
-                    }
-
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(HEATING_TARIFF)) {
-                        event = eventReader.nextEvent();
-                        payment.heatingTariff = Double.parseDouble(event.asCharacters().getData());
-                        continue;
-                    }
-
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(WATER_TARIFF)) {
-                        event = eventReader.nextEvent();
-                        payment.waterTariff = Double.parseDouble(event.asCharacters().getData());
-                        continue;
-                    }
-
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(FLAT_TARIFF)) {
-                        event = eventReader.nextEvent();
-                        payment.flatTariff = Double.parseDouble(event.asCharacters().getData());
-                        continue;
-                    }
-
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(GARBAGE_TARIFF)) {
-                        event = eventReader.nextEvent();
-                        payment.garbageTariff = Double.parseDouble(event.asCharacters().getData());
-                        continue;
-                    }
-
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(HEATING_TARIFF_TO_PRINT)) {
-                        event = eventReader.nextEvent();
-                        payment.heatingTariffToPrint = Double.parseDouble(event.asCharacters().getData());
-                        continue;
-                    }
-
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(WATER_TARIFF_TO_PRINT)) {
-                        event = eventReader.nextEvent();
-                        payment.waterTariffToPrint = Double.parseDouble(event.asCharacters().getData());
-                        continue;
-                    }
-
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(FLAT_TARIFF_TO_PRINT)) {
-                        event = eventReader.nextEvent();
-                        payment.flatTariffToPrint = Double.parseDouble(event.asCharacters().getData());
-                        continue;
-                    }
-
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(GARBAGE_TARIFF_TO_PRINT)) {
-                        event = eventReader.nextEvent();
-                        payment.garbageTariffToPrint = Double.parseDouble(event.asCharacters().getData());
-                        continue;
-                    }
-
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(ELECTRO_MUST_PAY)) {
-                        event = eventReader.nextEvent();
-                        payment.electroMustPay = Double.parseDouble(event.asCharacters().getData());
-                        continue;
-                    }
-
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(ELECTRO_PAYMENT_SET)) {
-                        event = eventReader.nextEvent();
-                        payment.electroPaymentSet = Boolean.parseBoolean(event.asCharacters().getData());
-                        continue;
-                    }
-
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(HEATING_MUST_PAY)) {
-                        event = eventReader.nextEvent();
-                        payment.heatingMustPay = Double.parseDouble(event.asCharacters().getData());
-                        continue;
-                    }
-
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(HEATING_PAYMENT_SET)) {
-                        event = eventReader.nextEvent();
-                        payment.heatingPaymentSet = Boolean.parseBoolean(event.asCharacters().getData());
-                        continue;
-                    }
-
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(WATER_MUST_PAY)) {
-                        event = eventReader.nextEvent();
-                        payment.waterMustPay = Double.parseDouble(event.asCharacters().getData());
-                        continue;
-                    }
-
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(WATER_PAYMENT_SET)) {
-                        event = eventReader.nextEvent();
-                        payment.waterPaymentSet = Boolean.parseBoolean(event.asCharacters().getData());
-                        continue;
-                    }
-
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(FLAT_MUST_PAY)) {
-                        event = eventReader.nextEvent();
-                        payment.flatMustPay = Double.parseDouble(event.asCharacters().getData());
-                        continue;
-                    }
-
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(FLAT_PAYMENT_SET)) {
-                        event = eventReader.nextEvent();
-                        payment.flatPaymentSet = Boolean.parseBoolean(event.asCharacters().getData());
-                        continue;
-                    }
-
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(GARBAGE_MUST_PAY)) {
-                        event = eventReader.nextEvent();
-                        payment.garbageMustPay = Double.parseDouble(event.asCharacters().getData());
-                        continue;
-                    }
-
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(GARBAGE_PAYMENT_SET)) {
-                        event = eventReader.nextEvent();
-                        payment.garbagePaymentSet = Boolean.parseBoolean(event.asCharacters().getData());
-                        continue;
-                    }
-
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(ELECTRO_START)) {
-                        event = eventReader.nextEvent();
-                        payment.electroStart = Integer.parseInt(event.asCharacters().getData());
-                        continue;
-                    }
-
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(ELECTRO_END)) {
-                        event = eventReader.nextEvent();
-                        payment.electroEnd = Integer.parseInt(event.asCharacters().getData());
-                        continue;
-                    }
-
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(KWATT_CONSUMED)) {
-                        event = eventReader.nextEvent();
-                        payment.kWattConsumed = Integer.parseInt(event.asCharacters().getData());
-                        continue;
-                    }
-
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(WATER_START)) {
-                        event = eventReader.nextEvent();
-                        payment.waterStart = Integer.parseInt(event.asCharacters().getData());
-                        continue;
-                    }
-
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(WATER_END)) {
-                        event = eventReader.nextEvent();
-                        payment.waterEnd = Integer.parseInt(event.asCharacters().getData());
-                        continue;
-                    }
-
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(M3_CONSUMED)) {
-                        event = eventReader.nextEvent();
-                        payment.m3consumed = Integer.parseInt(event.asCharacters().getData());
-                        continue;
-                    }
-
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(PAYMENT_FOR_ELECTRICITY)) {
-                        event = eventReader.nextEvent();
-                        payment.paymentForElectricity = Integer.parseInt(event.asCharacters().getData());
-                        continue;
-                    }
-
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(PAYMENT_FOR_WATER)) {
-                        event = eventReader.nextEvent();
-                        payment.paymentForWater = Integer.parseInt(event.asCharacters().getData());
-                        continue;
-                    }
-
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(PAYMENT_FOR_HEATING)) {
-                        event = eventReader.nextEvent();
-                        payment.paymentForHeating = Integer.parseInt(event.asCharacters().getData());
-                        continue;
-                    }
-
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(PAYMENT_FOR_FLAT)) {
-                        event = eventReader.nextEvent();
-                        payment.paymentForFlat = Integer.parseInt(event.asCharacters().getData());
-                        continue;
-                    }
-
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(PAYMENT_FOR_GARBAGE)) {
-                        event = eventReader.nextEvent();
-                        payment.paymentForGarbage = Integer.parseInt(event.asCharacters().getData());
-                        continue;
-                    }
-
-                    if (event.asStartElement().getName().getLocalPart()
-                            .equals(TOTAL)) {
-                        event = eventReader.nextEvent();
-                        payment.total = Integer.parseInt(event.asCharacters().getData());
-                        continue;
-                    }
+                } catch (XMLStreamException xlmse) {
+                    Alerts.alertInfo("Проблема потока чтения",
+                            "В потоке чтения платежей произошла какая-то ошибка\n" +
+                                    "Часть одного из платежей считана неправильно.\n" +
+                                    "Можете изучить платежи и найти, что не так");
                 }
-
-                // If we reach the end of a contact element, we add it to the list
-                if (event.isEndElement()) {
-                    EndElement endElement = event.asEndElement();
-                    if (endElement.getName().getLocalPart().equals(PAYMENT)) {
-                        payments.add(payment);
-                    }
-                }
-
             }
         } catch (FileNotFoundException e) {
-            Alerts.alertInfo("Проблема чтения",
+            Alerts.alertInfo("Ошибка чтения",
                     "Проблема чтения файла сохраненных платежей." +
                             "\nФайл не существует, а может быть, поврежден");
         } catch (XMLStreamException e) {
             Alerts.alertInfo("Проблема чтения",
                     "Проблема при чтении файла сохраненных платежей" +
-                            "\nЧто-то пошло не так в потоке чтения");
+                            "\nЧто-то пошло не так в потоке чтения xml");
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    Alerts.alertInfo("Проблема чтения",
+                            "Проблема при чтении файла сохраненных платежей" +
+                                    "\nНе удалось закрыть поток чтения");
+                }
+            }
         }
     }
 
