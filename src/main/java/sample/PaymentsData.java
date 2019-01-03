@@ -431,29 +431,33 @@ public class PaymentsData {
                     Alerts.alertInfo("Проблема потока чтения",
                             "В потоке чтения платежей произошла какая-то ошибка\n" +
                                     "Часть одного из платежей считана неправильно.\n" +
-                                    "Можете изучить платежи и найти, что не так" +
-                            xlmse.getMessage()
+                                    "Можете изучить платежи и найти, что не так\n" +
+                                    xlmse.getMessage()
                     );
                 }
             }
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException fnfe) {
             Alerts.alertInfo("Ошибка чтения",
                     "Проблема чтения файла сохраненных платежей." +
-                            "\nФайл не существует, а может быть, поврежден");
+                            "\nФайл не существует, а может быть, поврежден\n" +
+                            fnfe.getMessage()
+            );
         } catch (XMLStreamException xlmse) {
             Alerts.alertInfo("Проблема чтения",
                     "Проблема при чтении файла сохраненных платежей" +
-                            "\nЧто-то пошло не так в потоке чтения xml"+
-                    xlmse.getMessage()
+                            "\nЧто-то пошло не так в потоке чтения xml\n" +
+                            xlmse.getMessage()
             );
         } finally {
             if (in != null) {
                 try {
                     in.close();
-                } catch (IOException e) {
+                } catch (IOException ioe) {
                     Alerts.alertInfo("Проблема чтения",
                             "Проблема при чтении файла сохраненных платежей" +
-                                    "\nНе удалось закрыть поток чтения");
+                                    "\nНе удалось закрыть поток чтения\n" +
+                                    ioe.getMessage()
+                    );
                 }
             }
         }

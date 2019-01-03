@@ -103,6 +103,7 @@ public class PaymentDialogController {
     private int electroEnd;
     private int waterStart;
     private int waterEnd;
+    private boolean someFieldsProcessedWrong = false;
 
     /* switching radio buttons in the dialog window
     according to whether the stuff is supposed to be payd by the tariff or by the random set amount of money*/
@@ -135,86 +136,103 @@ public class PaymentDialogController {
             year = Integer.parseInt(yearField.getText());
         } catch (Exception e) {
             year = 0;
+            someFieldsProcessedWrong = true;
         }
         try {
             month = Integer.parseInt(monthField.getText());
         } catch (Exception e) {
             month = 0;
+            someFieldsProcessedWrong = true;
         }
         try {
             electroTariff1 = Double.parseDouble(electroTariff1Field.getText().replace(',', '.'));
         } catch (Exception e) {
             electroTariff1 = 0;
+            someFieldsProcessedWrong = true;
         }
         try {
             electroLimit1 = Integer.parseInt(electroLimit1Field.getText().replace(',', '.'));
         } catch (Exception e) {
             electroLimit1 = 0;
+            someFieldsProcessedWrong = true;
         }
         try {
             electroTariff2 = Double.parseDouble(electroTariff2Field.getText().replace(',', '.'));
         } catch (Exception e) {
             electroTariff2 = 0;
+            someFieldsProcessedWrong = true;
         }
         try {
             electroLimit2 = Integer.parseInt(electroLimit2Field.getText().replace(',', '.'));
         } catch (Exception e) {
             electroLimit2 = 0;
+            someFieldsProcessedWrong = true;
         }
         try {
             electroTariff3 = Double.parseDouble(electroTariff3Field.getText().replace(',', '.'));
         } catch (Exception e) {
             electroTariff3 = 0;
+            someFieldsProcessedWrong = true;
         }
         try {
             electroLimit3 = Integer.parseInt(electroLimit3Field.getText().replace(',', '.'));
         } catch (Exception e) {
             electroLimit3 = 0;
+            someFieldsProcessedWrong = true;
         }
         try {
             electroTariff4 = Double.parseDouble(electroTariff4Field.getText().replace(',', '.'));
         } catch (Exception e) {
             electroTariff4 = 0;
+            someFieldsProcessedWrong = true;
         }
         try {
             electroStart = Integer.parseInt(electroStartField.getText().replace(',', '.'));
         } catch (Exception e) {
             electroStart = 0;
+            someFieldsProcessedWrong = true;
         }
         try {
             electroEnd = Integer.parseInt(electroEndField.getText().replace(',', '.'));
         } catch (Exception e) {
             electroEnd = 0;
+            someFieldsProcessedWrong = true;
         }
         try {
             waterTariff = Double.parseDouble(waterTariffField.getText().replace(',', '.'));
         } catch (Exception e) {
             waterTariff = 0;
+            someFieldsProcessedWrong = true;
         }
         try {
             waterStart = Integer.parseInt(waterStartField.getText().replace(',', '.'));
         } catch (Exception e) {
             waterStart = 0;
+            someFieldsProcessedWrong = true;
         }
         try {
             waterEnd = Integer.parseInt(waterEndField.getText().replace(',', '.'));
         } catch (Exception e) {
             waterEnd = 0;
+            someFieldsProcessedWrong = true;
         }
         try {
             heatingTariff = Double.parseDouble(heatingTariffField.getText().replace(',', '.'));
         } catch (Exception e) {
             heatingTariff = 0;
+            someFieldsProcessedWrong = true;
         }
         try {
             flatTariff = Double.parseDouble(flatTariffField.getText().replace(',', '.'));
         } catch (Exception e) {
             flatTariff = 0;
+            someFieldsProcessedWrong = true;
         }
         try {
             garbageTariff = Double.parseDouble(garbageTariffField.getText().replace(',', '.'));
         } catch (Exception e) {
             garbageTariff = 0;
+            someFieldsProcessedWrong = true;
         }
 
 
@@ -222,33 +240,45 @@ public class PaymentDialogController {
             electroMustPay = Double.parseDouble(electroMustPayField.getText().replace(',', '.'));
         } catch (Exception e) {
             electroMustPay = 0;
+            someFieldsProcessedWrong = true;
         }
         try {
             waterMustPay = Double.parseDouble(waterMustPayField.getText().replace(',', '.'));
         } catch (Exception e) {
             waterMustPay = 0;
+            someFieldsProcessedWrong = true;
         }
         try {
             flatMustPay = Double.parseDouble(flatMustPayField.getText().replace(',', '.'));
         } catch (Exception e) {
             flatMustPay = 0;
+            someFieldsProcessedWrong = true;
         }
         try {
             heatingMustPay = Double.parseDouble(heatingMustPayField.getText().replace(',', '.'));
         } catch (Exception e) {
             heatingMustPay = 0;
+            someFieldsProcessedWrong = true;
         }
         try {
             flatMustPay = Double.parseDouble(flatMustPayField.getText().replace(',', '.'));
         } catch (Exception e) {
             flatMustPay = 0;
+            someFieldsProcessedWrong = true;
         }
         try {
             garbageMustPay = Double.parseDouble(garbageMustPayField.getText().replace(',', '.'));
         } catch (Exception e) {
             garbageMustPay = 0;
+            someFieldsProcessedWrong = true;
         }
 
+        if (someFieldsProcessedWrong) {
+
+            Alerts.alertInfo("Платеж(и) обработан(ы) неправильно",
+                    "Значения в одном (или нескольких) полях ввода платежей некорректны.\n" +
+                    "Все неправильные значения заменены значением 0");
+        }
     }
 
     public Payment processPayment(Payment payment) {
@@ -323,8 +353,7 @@ public class PaymentDialogController {
             flatTariffField.setText(String.valueOf(payment.flatTariff));
             heatingTariffField.setText(String.valueOf(payment.heatingTariff));
             garbageTariffField.setText(String.valueOf(payment.garbageTariff));
-        }
-        else {
+        } else {
             electroTariff1Field.setText(String.valueOf(tariffsData.electroTariff1));
             electroTariff2Field.setText(String.valueOf(tariffsData.electroTariff2));
             electroTariff3Field.setText(String.valueOf(tariffsData.electroTariff3));
