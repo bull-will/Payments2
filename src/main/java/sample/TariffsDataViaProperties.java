@@ -5,7 +5,8 @@ import java.util.Properties;
 
 public class TariffsDataViaProperties {
 
-    private static final String TARIFFS_FILE = "tariffs.properties";
+    private static String TARIFFS_FILE;
+
 
     private static final String ELECTRO_TARIFF_1 = "electro_tariff_1";
     private static final String ELECTRO_LIMIT_1 = "electro_limit_1";
@@ -46,6 +47,15 @@ public class TariffsDataViaProperties {
 
 
     public TariffsDataViaProperties() {
+        try {
+            TARIFFS_FILE = (new File(".").getCanonicalPath().endsWith("target") ?
+                    "tariffs.properties" : "src\\main\\resources\\tariffs.properties");
+        } catch (IOException e) {
+            Alerts.alertInfo("Ошибка обработки файла тарифов",
+                    "Не удалось получить путь файла тарифов\n" +
+                            "Загружены тарифы по умолчанию");
+            e.printStackTrace();
+        }
         this.electroTariff1 = electroTariff1Original;
         this.electroLimit1 = electroLimit1Original;
         this.electroTariff2 = electroTariff2Original;

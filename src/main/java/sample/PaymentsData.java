@@ -72,7 +72,9 @@ public class PaymentsData {
 
     public void addPayment(Payment payment) {
         if (payment == null) {
-            System.out.println("Trying to add null was futile");
+//            System.out.println("Trying to add null was futile");
+            Alerts.alertInfo("Null", "Попытка добавить null " +
+                    "вместо нормального платежа безуспешна");
             return;
         }
         payments.add(payment);

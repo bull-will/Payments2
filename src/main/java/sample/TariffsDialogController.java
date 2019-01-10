@@ -131,7 +131,6 @@ public class TariffsDialogController {
         }
 
         if (someFieldsProcessedWrong) {
-
             Alerts.alertInfo("Тариф(ы) обработан(ы) неправильно",
                     "Значения в одном (или нескольких) полях ввода тарифов некорректны.\n" +
                     "Все неправильные значения заменены значением 0");

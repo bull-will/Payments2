@@ -174,11 +174,13 @@ public class Controller {
             paymentsData.addPayment(newPayment);
             paymentsData.save();
             paymentsListView.getSelectionModel().select(newPayment);
-        } else {
-            System.out.println("Creating the new payment cancelled");
         }
+
         /* Just for info */
-        paymentsData.printAll();
+//        else {
+//            System.out.println("Creating the new payment cancelled");
+//        }
+//        paymentsData.printAll();
     }
 
     @FXML
@@ -197,13 +199,14 @@ public class Controller {
         Payment editedPayment = processPaymentWithDialog(payment, true, true);
         if (editedPayment != null) {
             payment = editedPayment;
-        } else {
-            System.out.println("Payment not edited");
         }
+//        else {
+//            System.out.println("Payment not edited");
+//        }
         paymentsListView.refresh();
         paymentsData.save();
         /* for info */
-        paymentsData.printAll();
+//        paymentsData.printAll();
     }
 
     /* for both newPayment() and editPayment() */
@@ -220,7 +223,8 @@ public class Controller {
         try {
             dialog.getDialogPane().setContent(fxmlLoader.load());
         } catch (IOException e) {
-            System.out.println("Couldn't loadPayments the dialog");
+//            System.out.println("Couldn't load the dialog");
+            Alerts.alertInfo("Ошибка диалога", "Не удалось загрузить диалог обработки платежа");
             e.printStackTrace();
             return null;
         }
@@ -271,7 +275,7 @@ public class Controller {
                 paymentTextArea.setText(selectedPayment.printPayment());
             }
             /* for info */
-            paymentsData.printAll();
+//            paymentsData.printAll();
         }
     }
 
@@ -294,7 +298,8 @@ public class Controller {
         try {
             dialog.getDialogPane().setContent(fxmlLoader.load());
         } catch (IOException e) {
-            System.out.println("Couldn't loadPayments the dialog");
+//            System.out.println("Couldn't load the dialog");
+            Alerts.alertInfo("Ошибка диалога", "Не удалось загрузить диалог обработки платежа");
             e.printStackTrace();
             return;
         }

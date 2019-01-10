@@ -237,37 +237,36 @@ public class PaymentDialogController {
 
 
         try {
-            electroMustPay = Double.parseDouble(electroMustPayField.getText().replace(',', '.'));
+            if (electroBySet.isSelected())
+                electroMustPay = Double.parseDouble(electroMustPayField.getText().replace(',', '.'));
         } catch (Exception e) {
             electroMustPay = 0;
             someFieldsProcessedWrong = true;
         }
         try {
-            waterMustPay = Double.parseDouble(waterMustPayField.getText().replace(',', '.'));
+            if (waterBySet.isSelected())
+                waterMustPay = Double.parseDouble(waterMustPayField.getText().replace(',', '.'));
         } catch (Exception e) {
             waterMustPay = 0;
             someFieldsProcessedWrong = true;
         }
         try {
-            flatMustPay = Double.parseDouble(flatMustPayField.getText().replace(',', '.'));
+            if (flatBySet.isSelected())
+                flatMustPay = Double.parseDouble(flatMustPayField.getText().replace(',', '.'));
         } catch (Exception e) {
             flatMustPay = 0;
             someFieldsProcessedWrong = true;
         }
         try {
-            heatingMustPay = Double.parseDouble(heatingMustPayField.getText().replace(',', '.'));
+            if (heatingBySet.isSelected())
+                heatingMustPay = Double.parseDouble(heatingMustPayField.getText().replace(',', '.'));
         } catch (Exception e) {
             heatingMustPay = 0;
             someFieldsProcessedWrong = true;
         }
         try {
-            flatMustPay = Double.parseDouble(flatMustPayField.getText().replace(',', '.'));
-        } catch (Exception e) {
-            flatMustPay = 0;
-            someFieldsProcessedWrong = true;
-        }
-        try {
-            garbageMustPay = Double.parseDouble(garbageMustPayField.getText().replace(',', '.'));
+            if (garbageBySet.isSelected())
+                garbageMustPay = Double.parseDouble(garbageMustPayField.getText().replace(',', '.'));
         } catch (Exception e) {
             garbageMustPay = 0;
             someFieldsProcessedWrong = true;
@@ -277,7 +276,7 @@ public class PaymentDialogController {
 
             Alerts.alertInfo("Платеж(и) обработан(ы) неправильно",
                     "Значения в одном (или нескольких) полях ввода платежей некорректны.\n" +
-                    "Все неправильные значения заменены значением 0");
+                            "Все неправильные значения заменены значением 0");
         }
     }
 

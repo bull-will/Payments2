@@ -420,46 +420,4 @@
 	<payment_for_garbage>22</payment_for_garbage>
 	<total>1174</total>
 </payment>
-<payment>
-	<year>2018</year>
-	<month>12</month>
-	<name>2018.12 (Декабрь)</name>
-	<electro_tariff_1>0.3084</electro_tariff_1>
-	<electro_limit_1>75</electro_limit_1>
-	<electro_tariff_2>0.6168</electro_tariff_2>
-	<electro_limit_2>150</electro_limit_2>
-	<electro_tariff_3>0.8388</electro_tariff_3>
-	<electro_limit_3>800</electro_limit_3>
-	<electro_tariff_4>2.6808</electro_tariff_4>
-	<heating_tariff>270.11</heating_tariff>
-	<water_tariff>14.0</water_tariff>
-	<flat_tariff>197.0</flat_tariff>
-	<garbage_tariff>22.0</garbage_tariff>
-	<heating_tariff_to_print>0.0</heating_tariff_to_print>
-	<water_tariff_to_print>0.0</water_tariff_to_print>
-	<flat_tariff_to_print>197.0</flat_tariff_to_print>
-	<garbage_tariff_to_print>22.0</garbage_tariff_to_print>
-	<electro_must_pay>0.0</electro_must_pay>
-	<electro_payment_set>false</electro_payment_set>
-	<heating_must_pay>792.0</heating_must_pay>
-	<heating_payment_set>true</heating_payment_set>
-	<water_must_pay>0.0</water_must_pay>
-	<water_payment_set>true</water_payment_set>
-	<flat_must_pay>0.0</flat_must_pay>
-	<flat_payment_set>false</flat_payment_set>
-	<garbage_must_pay>0.0</garbage_must_pay>
-	<garbage_payment_set>false</garbage_payment_set>
-	<electro_start>25135</electro_start>
-	<electro_end>25397</electro_end>
-	<kwatt_consumed>262</kwatt_consumed>
-	<water_start>0</water_start>
-	<water_end>0</water_end>
-	<m3_consumed>0</m3_consumed>
-	<payment_for_electricity>163</payment_for_electricity>
-	<payment_for_water>0</payment_for_water>
-	<payment_for_heating>792</payment_for_heating>
-	<payment_for_flat>197</payment_for_flat>
-	<payment_for_garbage>22</payment_for_garbage>
-	<total>1174</total>
-</payment>
 </payments>
