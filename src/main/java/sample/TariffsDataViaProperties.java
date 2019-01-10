@@ -1,12 +1,17 @@
 package sample;
 
 import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
 import java.util.Properties;
 
 public class TariffsDataViaProperties {
 
-    private static String TARIFFS_FILE;
-
+    //    private static String TARIFFS_FILE;
+    private static final String TARIFFS_FILE = "/tariffs.properties";
+    private String tariffsFileStoringPath= "tariffs.properties";
 
     private static final String ELECTRO_TARIFF_1 = "electro_tariff_1";
     private static final String ELECTRO_LIMIT_1 = "electro_limit_1";
@@ -47,15 +52,15 @@ public class TariffsDataViaProperties {
 
 
     public TariffsDataViaProperties() {
-        try {
-            TARIFFS_FILE = (new File(".").getCanonicalPath().endsWith("target") ?
-                    "tariffs.properties" : "src\\main\\resources\\tariffs.properties");
-        } catch (IOException e) {
-            Alerts.alertInfo("Ошибка обработки файла тарифов",
-                    "Не удалось получить путь файла тарифов\n" +
-                            "Загружены тарифы по умолчанию");
-            e.printStackTrace();
-        }
+//        try {
+//            TARIFFS_FILE = (new File(".").getCanonicalPath().endsWith("target") ?
+//                    "tariffs.properties" : "src\\main\\resources\\tariffs.properties");
+//        } catch (IOException e) {
+//            Alerts.alertInfo("Ошибка обработки файла тарифов",
+//                    "Не удалось получить путь файла тарифов\n" +
+//                            "Загружены тарифы по умолчанию");
+//            e.printStackTrace();
+//        }
         this.electroTariff1 = electroTariff1Original;
         this.electroLimit1 = electroLimit1Original;
         this.electroTariff2 = electroTariff2Original;
@@ -76,10 +81,13 @@ public class TariffsDataViaProperties {
 
         try {
 
-            input = new FileInputStream(TARIFFS_FILE);
+//            input = new FileInputStream(TARIFFS_FILE);
 
             // load a properties file
-            tariffs.load(input);
+            tariffs.load(Main.class.getResourceAsStream(TARIFFS_FILE));
+            tariffsFileStoringPath = Main.class.getResource(TARIFFS_FILE).getPath();
+//            System.out.println(tariffsFileStoringPath);
+            Alerts.alertInfo("Файл тарифов", tariffsFileStoringPath);
 
             // get the property values and transmitting them values to fields
             this.electroTariff1 = Double.parseDouble(tariffs.getProperty(ELECTRO_TARIFF_1));
@@ -111,18 +119,19 @@ public class TariffsDataViaProperties {
                     "Ошибка формата данных сохраненных тарифов.\n" +
                             "Новые тарифы не загружены или загружены не полностью.\n" +
                             "Часть тарифов может быть заменена тарифами по умолчанию");
-        } finally {
-            if (input != null) {
-                try {
-                    input.close();
-                } catch (IOException ioe) {
-                    Alerts.alertInfo("Проблема при чтении тарифов",
-                            "При попытке закрытия потока ввода произошла какая-то ошибка ввода-вывода.\n" +
-                                    "Тарифы не изменены");
-                    ioe.printStackTrace();
-                }
-            }
         }
+//        finally {
+//            if (input != null) {
+//                try {
+//                    input.close();
+//                } catch (IOException ioe) {
+//                    Alerts.alertInfo("Проблема при чтении тарифов",
+//                            "При попытке закрытия потока ввода произошла какая-то ошибка ввода-вывода.\n" +
+//                                    "Тарифы не изменены");
+//                    ioe.printStackTrace();
+//                }
+//            }
+//        }
     }
 
     public void save() {
@@ -132,7 +141,8 @@ public class TariffsDataViaProperties {
 
         try {
 
-            output = new FileOutputStream(TARIFFS_FILE);
+            File file = new File(tariffsFileStoringPath);
+            output = new FileOutputStream(file);
 
             // set the properties value
             prop.setProperty(ELECTRO_TARIFF_1, String.valueOf(electroTariff1));
