@@ -72,14 +72,11 @@ public class TariffsDataViaProperties {
     public void loadTariffs() {
 
         Properties tariffs = new Properties();
-        InputStream input = null;
 
         try {
 
-            input = new FileInputStream(TARIFFS_FILE);
-
             // load a properties file
-            tariffs.load(input);
+            tariffs.load(this.getClass().getResourceAsStream("/tariffs.properties"));
 
             // get the property values and transmitting them values to fields
             this.electroTariff1 = Double.parseDouble(tariffs.getProperty(ELECTRO_TARIFF_1));
@@ -111,17 +108,6 @@ public class TariffsDataViaProperties {
                     "Ошибка формата данных сохраненных тарифов.\n" +
                             "Новые тарифы не загружены или загружены не полностью.\n" +
                             "Часть тарифов может быть заменена тарифами по умолчанию");
-        } finally {
-            if (input != null) {
-                try {
-                    input.close();
-                } catch (IOException ioe) {
-                    Alerts.alertInfo("Проблема при чтении тарифов",
-                            "При попытке закрытия потока ввода произошла какая-то ошибка ввода-вывода.\n" +
-                                    "Тарифы не изменены");
-                    ioe.printStackTrace();
-                }
-            }
         }
     }
 
