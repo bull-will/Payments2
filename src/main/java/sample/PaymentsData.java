@@ -9,7 +9,7 @@ import java.io.*;
 
 public class PaymentsData {
 
-    private static String PAYMENTS_FILE = "payments.xml";
+    private static String PAYMENTS_FILE;
     private static final String PAYMENTS = "payments";
     private static final String PAYMENT = "payment";
 
@@ -63,6 +63,16 @@ public class PaymentsData {
     private ObservableList<Payment> payments;
 
     public PaymentsData() {
+        try {
+            /* looks like not so beautiful */
+            PAYMENTS_FILE =  (new File(".").getCanonicalPath().endsWith("target") ?
+                    "classes/payments.xml" : ("src/main/resources/payments.xml"));
+        } catch (IOException e) {
+            Alerts.alertInfo("Ошибка обработки файла тарифов",
+                    "Не удалось получить путь файла тарифов\n" +
+                            "Загружены тарифы по умолчанию");
+            e.printStackTrace();
+        }
         payments = FXCollections.observableArrayList();
     }
 

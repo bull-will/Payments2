@@ -48,8 +48,12 @@ public class TariffsDataViaProperties {
 
     public TariffsDataViaProperties() {
         try {
+            /* the printout looks lame */
+//            TARIFFS_FILE = this.getClass().getResource("/tariffs.properties").toString();
+//            System.out.println(TARIFFS_FILE);
+            /* better try this crutch */
             TARIFFS_FILE = (new File(".").getCanonicalPath().endsWith("target") ?
-                    "tariffs.properties" : "src\\main\\resources\\tariffs.properties");
+                    "classes/tariffs.properties" : ("src/main/resources/tariffs.properties"));
         } catch (IOException e) {
             Alerts.alertInfo("Ошибка обработки файла тарифов",
                     "Не удалось получить путь файла тарифов\n" +
@@ -76,7 +80,8 @@ public class TariffsDataViaProperties {
         try {
 
             // load a properties file
-            tariffs.load(this.getClass().getResourceAsStream("/tariffs.properties"));
+            tariffs.load(new FileInputStream(TARIFFS_FILE));
+//            tariffs.load(this.getClass().getResourceAsStream("/tariffs.properties"));
 
             // get the property values and transmitting them values to fields
             this.electroTariff1 = Double.parseDouble(tariffs.getProperty(ELECTRO_TARIFF_1));
@@ -117,8 +122,11 @@ public class TariffsDataViaProperties {
         OutputStream output = null;
 
         try {
-
+            /* doesn't work. just doesn't */
+//            output = new FileOutputStream(this.getClass().getResource("/tariffs.properties").toString());
+            /* using the crutch */
             output = new FileOutputStream(TARIFFS_FILE);
+
 
             // set the properties value
             prop.setProperty(ELECTRO_TARIFF_1, String.valueOf(electroTariff1));
