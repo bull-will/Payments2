@@ -66,7 +66,8 @@ public class PaymentsData {
         try {
             /* looks like not so beautiful */
             PAYMENTS_FILE =  (new File(".").getCanonicalPath().endsWith("target") ?
-                    "classes/payments.xml" : ("src/main/resources/payments.xml"));
+                    "classes"+File.separator+"payments.xml" :
+                    ("src"+File.separator+"main"+File.separator+"resources"+File.separator+"payments.xml"));
         } catch (IOException e) {
             Alerts.alertInfo("Ошибка обработки файла тарифов",
                     "Не удалось получить путь файла тарифов\n" +

@@ -53,7 +53,8 @@ public class TariffsDataViaProperties {
 //            System.out.println(TARIFFS_FILE);
             /* better try this crutch */
             TARIFFS_FILE = (new File(".").getCanonicalPath().endsWith("target") ?
-                    "classes/tariffs.properties" : ("src/main/resources/tariffs.properties"));
+                    "classes"+File.separator+"tariffs.properties" :
+                    ("src"+File.separator+"main"+File.separator+"resources"+File.separator+"tariffs.properties"));
         } catch (IOException e) {
             Alerts.alertInfo("Ошибка обработки файла тарифов",
                     "Не удалось получить путь файла тарифов\n" +
