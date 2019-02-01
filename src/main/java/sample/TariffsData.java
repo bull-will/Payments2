@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 
+@Deprecated
 public class TariffsData {
 
     private static final String TARIFFS_FILE = "tariffs.xml";

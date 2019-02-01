@@ -217,25 +217,34 @@ public class Payment {
 
     public String printPayment() {
         String writeLine = "";
-
-        writeLine = writeLine.concat(name.get() + ":\n\n")
-                .concat("Квартплата\t\t\tТариф " + Math.round(flatTariffToPrint) + " руб.\n")
-                .concat("\t\t\t\tПлатеж " + paymentForFlat + " руб.\n\n")
-                .concat("Электричество\n")
-                .concat("(Нач. пок. счетчика:\t" + electroStart + ")\n")
-                .concat("(Конеч. пок. счетчика:\t" + electroEnd + ")\n")
-                .concat("(Потреблено кВт:\t\t" + kWattConsumed + ")\n")
-                .concat("\t\t\t\tПлатеж " + paymentForElectricity + " руб.\n\n")
-                .concat("Вода\t\t\t\tТариф " + Math.round(waterTariffToPrint) + " руб.\n")
-                .concat("(Нач. пок. счетчика:\t" + waterStart + ")\n")
-                .concat("(Конеч. пок. счетчика:\t" + waterEnd + ")\n")
-                .concat("(Потреблено куб.м:\t" + m3consumed + ")\n")
-                .concat("\t\t\t\tПлатеж " + paymentForWater + " руб.\n\n")
-                .concat("Отопление\t\t\tТариф " + Math.round(heatingTariffToPrint) + " руб.\n")
-                .concat("\t\t\t\tПлатеж " + paymentForHeating + " руб.\n\n")
-                .concat("Вывоз мусора\t\tТариф " + Math.round(garbageTariffToPrint) + " руб.\n")
-                .concat("\t\t\t\tПлатеж " + paymentForGarbage + " руб.\n\n")
-                .concat("\t\t\t\tВсего: " + total + " руб.\n");
+        writeLine = writeLine.concat(name.get() + ":\n\n");
+        if (paymentForFlat != 0){
+            writeLine = writeLine.concat("Квартплата\t\t\tТариф " + Math.round(flatTariffToPrint) + " руб.\n");
+            writeLine = writeLine.concat("\t\t\t\tПлатеж " + paymentForFlat + " руб.\n\n");
+        }
+        if (paymentForElectricity != 0){
+            writeLine = writeLine.concat("Электричество\n");
+            writeLine = writeLine.concat("(Нач. пок. счетчика:\t" + electroStart + ")\n");
+            writeLine = writeLine.concat("(Конеч. пок. счетчика:\t" + electroEnd + ")\n");
+            writeLine = writeLine.concat("(Потреблено кВт:\t\t" + kWattConsumed + ")\n");
+            writeLine = writeLine.concat("\t\t\t\tПлатеж " + paymentForElectricity + " руб.\n\n");
+        }
+        if (paymentForWater != 0){
+            writeLine = writeLine.concat("Вода\t\t\t\tТариф " + Math.round(waterTariffToPrint) + " руб.\n");
+            writeLine = writeLine.concat("(Нач. пок. счетчика:\t" + waterStart + ")\n");
+            writeLine = writeLine.concat("(Конеч. пок. счетчика:\t" + waterEnd + ")\n");
+            writeLine = writeLine.concat("(Потреблено куб.м:\t" + m3consumed + ")\n");
+            writeLine = writeLine.concat("\t\t\t\tПлатеж " + paymentForWater + " руб.\n\n");
+        }
+        if (paymentForHeating != 0){
+            writeLine = writeLine.concat("Отопление\t\t\tТариф " + Math.round(heatingTariffToPrint) + " руб.\n");
+            writeLine = writeLine.concat("\t\t\t\tПлатеж " + paymentForHeating + " руб.\n\n");
+        }
+        if (paymentForGarbage != 0){
+            writeLine = writeLine.concat("Вывоз мусора\t\tТариф " + Math.round(garbageTariffToPrint) + " руб.\n");
+            writeLine = writeLine.concat("\t\t\t\tПлатеж " + paymentForGarbage + " руб.\n\n");
+        }
+        writeLine = writeLine.concat("\t\t\t\tВсего: " + total + " руб.\n");
         return writeLine;
     }
 
