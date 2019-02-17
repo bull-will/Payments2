@@ -288,6 +288,7 @@ public class Controller {
         }
     }
 
+    /* a user can watch and edit his tariffs in this window */
     public void tariffsDialog(ActionEvent actionEvent) {
         Dialog dialog = new Dialog();
         dialog.initOwner(mainBorderPane.getScene().getWindow());
@@ -307,7 +308,7 @@ public class Controller {
         dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
         TariffsDialogController tariffsDialog = fxmlLoader.getController();
 
-        /* let's fill dialog window's fields with numbers from the basis payment (new/being edited) */
+        /* let's fill dialog window's fields from the tariffs file */
         tariffsDialog.showDialogFillFields(tariffsData);
 
         Optional<ButtonType> result = dialog.showAndWait();

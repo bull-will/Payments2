@@ -64,7 +64,7 @@ public class PaymentsData {
 
     public PaymentsData() {
         try {
-            /* looks like not so beautiful */
+            /* looks not so beautiful for it's just a crutch */
             PAYMENTS_FILE =  (new File(".").getCanonicalPath().endsWith("target") ?
                     "classes"+File.separator+"payments.xml" :
                     ("src"+File.separator+"main"+File.separator+"resources"+File.separator+"payments.xml"));
